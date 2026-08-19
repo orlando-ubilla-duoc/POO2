@@ -81,7 +81,7 @@ public class Repartidor {
 
 	@Override
 	public String toString() {
-		return "Repartidor{" +
+		return "Repartidor{ " +
 				"Rut='" + this.rut + '\'' +
 				", nombre='" + this.nombre + '\'' +
 				", mochilaTermica=" + this.tieneMochilaTermica +
@@ -89,6 +89,6 @@ public class Repartidor {
 				", distancia=" + this.distanciaAlClienteKm + " km" +
 				", capMax=" + this.capacidadCargaKg + " KG" +
 				", tiene-embalaje=" + this.tieneEmbalaje +
-				'}';
+				" }";
 	}
 }
