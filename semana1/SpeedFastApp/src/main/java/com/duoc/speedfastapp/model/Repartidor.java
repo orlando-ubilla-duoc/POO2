@@ -17,13 +17,14 @@ public class Repartidor {
 	public Repartidor() {
 	}
 
-	public Repartidor(String rut, String nombre, boolean tieneMochilaTermica, boolean disponibleInmediato, double distanciaAlClienteKm, double capacidadKg) {
+	public Repartidor(String rut, String nombre, boolean tieneMochilaTermica, boolean disponibleInmediato, double distanciaAlClienteKm, double capacidadKg, boolean tieneEmbalaje) {
 		this.rut                  = rut;
 		this.nombre               = nombre;
 		this.disponible           = true;
 		this.tieneMochilaTermica  = tieneMochilaTermica;
 		this.distanciaAlClienteKm = distanciaAlClienteKm;
 		this.capacidadCargaKg     = capacidadKg;
+		this.tieneEmbalaje        = tieneEmbalaje;
 	}
 
 	public String getRut() {
