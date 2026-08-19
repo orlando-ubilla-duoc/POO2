@@ -22,8 +22,7 @@ y métodos sobrescritos (personalizando comportamientos en clases derivadas).
 ```plaintext
 📁 src/
 ├── ui/           # Clase principal con el método main
-├── model/        # Clases de dominio ( modelos de datos )
-└── data/         # Clase manejadora de Objetos de subclases, con manejo de listado interno.
+└── model/        # Clases de dominio ( Pedidos, Repartidores, etc )
 ````
 
 ---
