@@ -38,7 +38,7 @@ contextualizada, aplicando polimorfismo mediante métodos abstractos.
 2. ingresar a directorio correspondiente a actividad de la semana 2
 
     ```bash
-        cd semana1/SpeedFastApp/
+        cd semana2/SpeedFastApp/
     ```
 
 3. Desde carpeta src, ubicarse en directorio main/java/com/duoc/speedfastapp/ui, y ejecutar el archivo `Main.java` de la siguiente forma.

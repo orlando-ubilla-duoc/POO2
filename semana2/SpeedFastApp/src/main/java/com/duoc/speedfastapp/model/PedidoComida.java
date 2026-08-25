@@ -15,6 +15,7 @@ public class PedidoComida extends Pedido {
 	 * Calcula el tiempo de entrega para pedidos de comida
 	 * @return integer	Total de minutos estimados
 	 */
+	@Override
 	public int calcularTiempoEntrega(){
 
 		return (int) Math.round( 15 + (2 * getDistanciaKm()));

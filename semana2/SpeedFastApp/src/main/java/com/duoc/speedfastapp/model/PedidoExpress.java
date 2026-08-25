@@ -15,6 +15,7 @@ public class PedidoExpress extends Pedido {
 	 * Calcula el tiempo de entrega para pedidos de comida
 	 * @return integer	Total de minutos estimados
 	 */
+	@Override
 	public int calcularTiempoEntrega(){
 
 		int tiempoBase = 10;

@@ -1,5 +1,5 @@
 ![Duoc UC](https://www.duoc.cl/wp-content/uploads/2022/09/logo-0.png)
-# 🧠 Evaluación Formativa 2 – Desarrollo Orientado a Objetos II
+# 🧠 Evaluación Sumativa 1 – Desarrollo Orientado a Objetos II
 
 ## 👤 Autor del proyecto
 - **Nombre completo:** Orlando Ubilla Orellana
@@ -10,9 +10,13 @@
 ---
 
 ## 📘 Descripción general del sistema
-Este proyecto corresponde a la Evaluación Formativa 2 *"Definiendo una clase abstracta y su jerarquía"*. Se trata de un
-proyecto en Java que implementa una jerarquía de clases que represente una situación
-contextualizada, aplicando polimorfismo mediante métodos abstractos.
+Este proyecto corresponde a la Evaluación Sumativa 1 *"Diseñando un sistema orientado a objetos con clases abstractas, polimorfismo e interfaces"*.
+Se trata de un diseñar un sistema aplicando los principios de la Programación Orientada a Objetos,<br>
+integrando:
+- Una clase abstracta que defina comportamientos comunes.
+- Clases derivadas que apliquen polimorfismo mediante sobrecarga y sobrescritura.
+- Interfaces que permitan el desacoplamiento de responsabilidades específicas dentro del
+sistema.
 
 ---
 
@@ -35,10 +39,10 @@ contextualizada, aplicando polimorfismo mediante métodos abstractos.
     ```bash
         git clone https://github.com/orlando-ubilla-duoc/POO2.git
     ```
-2. ingresar a directorio correspondiente a actividad de la semana 2
+2. ingresar a directorio correspondiente a actividad de la semana 3
 
     ```bash
-        cd semana2/SpeedFastApp/
+        cd semana3/SpeedFastApp/
     ```
 
 3. Desde carpeta src, ubicarse en directorio main/java/com/duoc/speedfastapp/ui, y ejecutar el archivo `Main.java` de la siguiente forma.
@@ -52,6 +56,6 @@ contextualizada, aplicando polimorfismo mediante métodos abstractos.
 
 **Repositorio GitHub:** \[https://github.com/orlando-ubilla-duoc/POO2/tree/master/semana2]
 
-**Fecha de entrega:** \[24/08/2026]
+**Fecha de entrega:** \[31/08/2026]
 
 ---
