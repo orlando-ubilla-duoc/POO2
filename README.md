@@ -7,8 +7,10 @@
 Repositorios generales para actividades formativas de cada semana.
 
 ```plaintext
-📁 POO2/
-└── semana1/      # Actividad Formativa Semana 1
+📁 POO2/          # Repositorio general Desarralla Orientado a Objetos II
+├── semana1/      # Actividad Formativa Semana 1 (Formativa)
+├── semana2/      # Actividad Formativa Semana 2 (Formativa)
+└── semana3/      # Actividad Formativa Semana 3 [Sumativa]
 ````
 
 ---
