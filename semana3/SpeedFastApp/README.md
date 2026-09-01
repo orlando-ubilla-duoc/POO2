@@ -24,8 +24,9 @@ sistema.
 
 ```plaintext
 📁 src/
-├── ui/           # Clase principal con el método main
-└── model/        # Clases de dominio ( Pedidos, etc )
+├── interfaces/    # Interfaces con comportamientos a implementar
+├── ui/            # Clase principal con el método main
+└── model/         # Clases de dominio ( Pedidos, etc )
 ````
 
 ---
@@ -48,13 +49,14 @@ sistema.
 3. Desde carpeta src, ubicarse en directorio main/java/com/duoc/speedfastapp/ui, y ejecutar el archivo `Main.java` de la siguiente forma.
 
     ```bash
+        cd src/main/java/com/duoc/speedfastapp/ui
         java Main.java
     ```
 
 
 ---
 
-**Repositorio GitHub:** \[https://github.com/orlando-ubilla-duoc/POO2/tree/master/semana2]
+**Repositorio GitHub:** \[https://github.com/orlando-ubilla-duoc/POO2/tree/master/semana3]
 
 **Fecha de entrega:** \[31/08/2026]
 
