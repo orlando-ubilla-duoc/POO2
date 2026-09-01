@@ -26,7 +26,7 @@ sistema.
 📁 src/
 ├── interfaces/    # Interfaces con comportamientos a implementar
 ├── ui/            # Clase principal con el método main
-└── model/         # Clases de dominio ( Pedidos, etc )
+└── model/         # Clases de dominio ( Repartidor, Pedidos, etc )
 ````
 
 ---

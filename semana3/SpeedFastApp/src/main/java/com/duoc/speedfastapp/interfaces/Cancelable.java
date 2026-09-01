@@ -2,6 +2,6 @@ package com.duoc.speedfastapp.interfaces;
 
 public interface Cancelable {
 
-	public void cancelar();
+	void cancelar();
 
 }

@@ -1,8 +1,8 @@
 package com.duoc.speedfastapp.ui;
 
-//import com.duoc.speedfastapp.model.PedidoComida;
-//import com.duoc.speedfastapp.model.PedidoEncomienda;
-//import com.duoc.speedfastapp.model.PedidoExpress;
+import com.duoc.speedfastapp.model.PedidoComida;
+import com.duoc.speedfastapp.model.PedidoEncomienda;
+import com.duoc.speedfastapp.model.PedidoExpress;
 
 public class Main {
 
@@ -12,23 +12,31 @@ public class Main {
 		System.out.println(" SPEEDFAST ");
 		System.out.println("=================================================\n");
 
-        /*
-		// Crear Pedidos de distintos tipos
-		System.out.println("\n");
-		PedidoComida pedidoComida = new PedidoComida("P-COM-01","Av. Providencia 123", 4.5);
+		PedidoComida pedidoComida = new PedidoComida("1001","Av. Providencia 123", 4.5);
+		PedidoEncomienda pedidoEncomienda = new PedidoEncomienda("1002","Calle Los Leones 456", 7.0);
+		PedidoExpress pedidoExpress = new PedidoExpress("1003","Calle Suecia 789", 1.5);
+
+		// Pedido-Comida
+		pedidoComida.asignarRepartidor("Juan Araya M.");
 		pedidoComida.mostrarResumen();
+		pedidoComida.despachar();
+		pedidoComida.cancelar();
+		pedidoComida.verHistorial();
 
-		System.out.println("\n");
-		PedidoEncomienda pedidoEncomienda = new PedidoEncomienda("P-ENC-01","Calle Los Leones 456", 7.0);
+		// Pedido-Encomienda
+		pedidoEncomienda.asignarRepartidor();
 		pedidoEncomienda.mostrarResumen();
+		pedidoEncomienda.despachar();
+		pedidoEncomienda.cancelar();
+		pedidoEncomienda.verHistorial();
 
-		System.out.println("\n");
-		PedidoExpress pedidoExpress = new PedidoExpress("P-EXP-01","Calle Suecia 789", 1.5);
+		// Pedido-Express
+		pedidoExpress.asignarRepartidor();
 		pedidoExpress.mostrarResumen();
-
-		pedidoExpress = new PedidoExpress("P-EXP-02","Av.Irarrazaval 1075", 6.5);
-		pedidoExpress.mostrarResumen();
-        */
+		pedidoExpress.despachar();
+		pedidoExpress.cancelar();
+		pedidoExpress.verHistorial();
+		
 
 		System.out.println("\n=================================================");
 		System.out.println(" FIN ACTIVIDAD");
