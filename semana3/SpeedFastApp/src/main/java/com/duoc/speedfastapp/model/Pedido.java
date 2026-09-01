@@ -1,5 +1,6 @@
 package com.duoc.speedfastapp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.duoc.speedfastapp.interfaces.Cancelable;
@@ -21,6 +22,7 @@ public abstract class Pedido implements Rastreable, Despachable, Cancelable {
 		this.idPedido         = nro_pedido;
 		this.direccionEntrega = direccion;
 		this.distanciaKm      = distancia;
+		this.historial        = new ArrayList<String>();
 	}
 
 	public String getNroPedido(){ return this.idPedido; }
@@ -48,6 +50,7 @@ public abstract class Pedido implements Rastreable, Despachable, Cancelable {
 		for( String historia : this.getHistorial() ){
 			System.out.println("- " + historia);
 		}
+		System.out.println("\n \n");
 	}
 
 	public void asignarRepartidor(){
@@ -65,7 +68,7 @@ public abstract class Pedido implements Rastreable, Despachable, Cancelable {
 			"- Pedido #" + this.idPedido + "\n" +
 			"- Direccion: " + this.direccionEntrega + "\n" +
 			"- Distancia: " + this.distanciaKm + "\n" +
-			"- Repartidor asignado: " + "\n" +
+			"- Repartidor asignado: " + this.repartidorAsignado.getNombre() + "\n" +
 			"- Tiempo estimado entrega : "+this.calcularTiempoEntrega() + " minuto(s)"
 		);
 		System.out.println("");

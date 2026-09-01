@@ -18,25 +18,21 @@ public class Main {
 
 		// Pedido-Comida
 		pedidoComida.asignarRepartidor("Juan Araya M.");
-		pedidoComida.mostrarResumen();
 		pedidoComida.despachar();
-		pedidoComida.cancelar();
+		//pedidoComida.cancelar();
 		pedidoComida.verHistorial();
 
 		// Pedido-Encomienda
 		pedidoEncomienda.asignarRepartidor();
-		pedidoEncomienda.mostrarResumen();
-		pedidoEncomienda.despachar();
+		//pedidoEncomienda.despachar();
 		pedidoEncomienda.cancelar();
 		pedidoEncomienda.verHistorial();
 
 		// Pedido-Express
 		pedidoExpress.asignarRepartidor();
-		pedidoExpress.mostrarResumen();
 		pedidoExpress.despachar();
 		pedidoExpress.cancelar();
 		pedidoExpress.verHistorial();
-		
 
 		System.out.println("\n=================================================");
 		System.out.println(" FIN ACTIVIDAD");

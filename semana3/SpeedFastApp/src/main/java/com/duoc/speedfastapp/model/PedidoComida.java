@@ -32,7 +32,7 @@ public class PedidoComida extends Pedido {
 	@Override
 	public void cancelar(){
 		System.out.println("Cancelando Pedido de Comida #" + this.getNroPedido() + "...");
-		System.out.println("-> Pedido de Comida cancelado exitosamente.");
+		System.out.println("-> Pedido de Comida cancelado exitosamente.\n");
 		this.addHistarial("Pedido de Comida #" + this.getNroPedido() + " Cancelando." );
 	}
 

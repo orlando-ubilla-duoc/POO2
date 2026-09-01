@@ -38,7 +38,7 @@ public class PedidoExpress extends Pedido {
 	@Override
 	public void cancelar(){
 		System.out.println("Cancelando Pedido Express #" + this.getNroPedido() + "...");
-		System.out.println("-> Pedido Express cancelado exitosamente.");
+		System.out.println("-> Pedido Express cancelado exitosamente.\n");
 		this.addHistarial("Pedido Express #" + this.getNroPedido() + " Cancelando." );
 	}
 }
