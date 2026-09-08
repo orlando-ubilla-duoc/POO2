@@ -3,14 +3,10 @@ package com.duoc.speedfastapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.duoc.speedfastapp.interfaces.Cancelable;
-import com.duoc.speedfastapp.interfaces.Despachable;
-import com.duoc.speedfastapp.interfaces.Rastreable;
-
 /**
  * CLASS Pedido
  */
-public abstract class Pedido implements Rastreable, Despachable, Cancelable {
+public abstract class Pedido {
 
 	private String idPedido;
 	private Repartidor repartidorAsignado;
@@ -39,19 +35,6 @@ public abstract class Pedido implements Rastreable, Despachable, Cancelable {
 
 	public List<String> getHistorial(){ return this.historial; }
 	public void addHistarial(String traza){ this.historial.add(traza); }
-
-	/**
-	 * define visualizacion del historial a este nivel,
-	 * ya que la rutina es la misma para todas las clases hijas.
-	 */
-	@Override
-	public void verHistorial(){
-		System.out.println("Historial:");
-		for( String historia : this.getHistorial() ){
-			System.out.println("- " + historia);
-		}
-		System.out.println("\n \n");
-	}
 
 	public void asignarRepartidor(){
 		// null

@@ -39,7 +39,7 @@ Para ello se continuará con el caso de la semana anterior, SpeedFast,  optimiza
     ```bash
         git clone https://github.com/orlando-ubilla-duoc/POO2.git
     ```
-2. ingresar a directorio correspondiente a actividad de la semana 3
+2. ingresar a directorio correspondiente a actividad de la semana 4
 
     ```bash
         cd semana4/SpeedFastApp/

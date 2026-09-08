@@ -1,6 +1,10 @@
 package com.duoc.speedfastapp.model;
 
-public class PedidoComida extends Pedido {
+import com.duoc.speedfastapp.interfaces.Cancelable;
+import com.duoc.speedfastapp.interfaces.Despachable;
+import com.duoc.speedfastapp.interfaces.Rastreable;
+
+public class PedidoComida extends Pedido implements Rastreable, Despachable, Cancelable {
 
 	public PedidoComida(String nro_pedido, String direccion, double distancia_km){
 		super(nro_pedido,direccion,distancia_km);
@@ -34,6 +38,19 @@ public class PedidoComida extends Pedido {
 		System.out.println("Cancelando Pedido de Comida #" + this.getNroPedido() + "...");
 		System.out.println("-> Pedido de Comida cancelado exitosamente.\n");
 		this.addHistarial("Pedido de Comida #" + this.getNroPedido() + " Cancelando." );
+	}
+
+	/**
+	 * define visualizacion del historial a este nivel,
+	 * ya que la rutina es la misma para todas las clases hijas.
+	 */
+	@Override
+	public void verHistorial(){
+		System.out.println("Historial:");
+		for( String historia : this.getHistorial() ){
+			System.out.println("- " + historia);
+		}
+		System.out.println("\n \n");
 	}
 
 }
