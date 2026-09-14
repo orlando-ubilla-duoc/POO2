@@ -25,6 +25,7 @@ public class Main {
 		_zonaDeCarga.agregarPedido(new PedidoEncomienda(1005,"Av.Manuel Montt 801", 6.2));
 		_zonaDeCarga.agregarPedido(new PedidoComida(1004,"Av. Irrarazaval 1234", 8.1));
 		_zonaDeCarga.agregarPedido(new PedidoExpress(1006,"Calle Las Gardenias 1058", 3.6));
+		_zonaDeCarga.agregarPedido(new PedidoComida(1007,"Av. Libertad 1058", 40.2));
 		System.out.println("");
 
 		// Crea Repartidores
@@ -38,14 +39,13 @@ public class Main {
 		executor.execute(repartidor2);
 		executor.execute(repartidor3);
 
-		System.out.println("");
-
 		try {
-			Thread.sleep(3000);
-		} catch (Exception e) {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
 		executor.shutdownNow();
+		System.out.println("Todos los pedidos han sido entregados correctamente.");
 
 		System.out.println("\n=================================================");
 		System.out.println(" FIN DEL PROCESAMIENTO");

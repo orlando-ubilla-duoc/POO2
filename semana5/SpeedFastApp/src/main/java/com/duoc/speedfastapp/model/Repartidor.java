@@ -24,6 +24,15 @@ public class Repartidor implements Runnable {
 	public String getRut(){ return this.rut; }
 	public void setRut(String Rut){ this.rut=Rut; }
 
+	private synchronized void entregarPedido(Pedido p){
+		System.out.println("["+this.getNombre()+"] retirando Pedido #"+p.getNroPedido()+"...");
+		System.out.println("["+this.getNombre()+"] Estado: "+p.getEstado());
+		p.setEstado("ENTREGADO");
+		System.out.println("["+this.getNombre()+"] entregando Pedido #"+p.getNroPedido()+"...");
+		System.out.println("["+this.getNombre()+"] Estado: "+p.getEstado());
+		System.out.println("");
+	}
+
 	@Override
 	public String toString(){
 		return (
@@ -35,24 +44,16 @@ public class Repartidor implements Runnable {
 	@Override
 	public void run() {
 		try {
-			// Toma un Pedido de la Cola.
+			// Toma pedidos hasta agotar cola.
 			Pedido pedidoReparto = zonaCarga.retirarPedido();
-			if( pedidoReparto==null ){
-				return;
+			while (pedidoReparto!=null) {
+				// rutina de entrega de pedido
+				entregarPedido(pedidoReparto);
+				// espera antes de ir por el siguiente pedido
+				Thread.sleep(350);
+				// toma otro pedido, si es que quedan
+				pedidoReparto = zonaCarga.retirarPedido();
 			}
-
-			// Cambia estado y "se envía a repartir".
-			pedidoReparto.setEstado("EN_REPARTO");
-			System.out.println("["+this.getNombre()+"] retirando Pedido #"+pedidoReparto.getNroPedido()+"...");
-			System.out.println("["+this.getNombre()+"] Estado: "+pedidoReparto.getEstado());
-
-			// ...
-			Thread.sleep(100); // Repartiendo en cien milisegundos, Flash!!
-			// Termina reparto, cambia estado.
-			pedidoReparto.setEstado("ENTREGADO");
-			System.out.println("["+this.getNombre()+"] entregando Pedido #"+pedidoReparto.getNroPedido()+"...");
-			System.out.println("["+this.getNombre()+"] Estado: "+pedidoReparto.getEstado());
-			System.out.println("");
 
 		} catch (InterruptedException e) {
 			System.out.println("Error: Hilo interrumpido. " + e.getMessage() );
