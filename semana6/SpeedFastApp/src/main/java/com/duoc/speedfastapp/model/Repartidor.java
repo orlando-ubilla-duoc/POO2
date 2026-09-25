@@ -1,6 +1,6 @@
 package com.duoc.speedfastapp.model;
 
-import com.duoc.speedfastapp.ZonaDeCarga;
+import com.duoc.speedfastapp.controller.ZonaDeCarga;
 
 /**
  * CLASS Repartidor

@@ -1,21 +1,16 @@
-package com.duoc.speedfastapp.ui;
+package com.duoc.speedfastapp;
 
-import com.duoc.speedfastapp.ZonaDeCarga;
-import com.duoc.speedfastapp.model.PedidoComida;
-import com.duoc.speedfastapp.model.PedidoEncomienda;
-import com.duoc.speedfastapp.model.PedidoExpress;
-import com.duoc.speedfastapp.model.Repartidor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.duoc.speedfastapp.view.VentanaPrincipal;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
-	public static void main(String[] args){
-
-		System.out.println("=================================================");
-		System.out.println(" SPEEDFAST-APP ");
-		System.out.println("=================================================\n");
-
+	public static void main(String[] args)
+	{
+		SwingUtilities.invokeLater(() -> {
+			VentanaPrincipal programa = new VentanaPrincipal( "SpeedFast v1.1");
+		});
+		/*
 		// Instancia clase para Zona de Carga
 		ZonaDeCarga _zonaDeCarga = new ZonaDeCarga();
 		// Agrega pool de Pedidos
@@ -46,9 +41,6 @@ public class Main {
 		}
 		executor.shutdownNow();
 		System.out.println("Todos los pedidos han sido entregados correctamente.");
-
-		System.out.println("\n=================================================");
-		System.out.println(" FIN DEL PROCESAMIENTO");
-		System.out.println("=================================================");
+		*/
 	}
 }

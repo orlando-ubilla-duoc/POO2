@@ -1,6 +1,6 @@
-package com.duoc.speedfastapp;
+package com.duoc.speedfastapp.controller;
 
-import com.duoc.speedfastapp.model.Pedido;
+import com.duoc.speedfastapp.model;
 import java.util.ArrayList;
 import java.util.List;
 
