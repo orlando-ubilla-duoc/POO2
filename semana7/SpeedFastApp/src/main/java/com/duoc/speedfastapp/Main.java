@@ -1,8 +1,9 @@
 package com.duoc.speedfastapp;
 
+import javax.swing.SwingUtilities;
+
 import com.duoc.speedfastapp.controller.ControladorPedido;
 import com.duoc.speedfastapp.view.VentanaPrincipal;
-import javax.swing.SwingUtilities;
 
 public class Main {
 
@@ -11,7 +12,7 @@ public class Main {
 		ControladorPedido controladorPedidos = new ControladorPedido();
 
 		SwingUtilities.invokeLater(() -> {
-			VentanaPrincipal programa = new VentanaPrincipal( "SpeedFast v1.2", controladorPedidos);
+			VentanaPrincipal programa = new VentanaPrincipal( "SpeedFast v1.3", controladorPedidos);
 		});
 	}
 }
