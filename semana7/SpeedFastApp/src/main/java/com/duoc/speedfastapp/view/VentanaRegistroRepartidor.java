@@ -8,31 +8,25 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.duoc.speedfastapp.controller.ControladorPedido;
-import com.duoc.speedfastapp.model.Pedido;
-import com.duoc.speedfastapp.model.PedidoComida;
-import com.duoc.speedfastapp.model.PedidoEncomienda;
-import com.duoc.speedfastapp.model.PedidoExpress;
-import com.duoc.speedfastapp.model.TipoPedido;
+import com.duoc.speedfastapp.controller.ControladorRepartidor;
+import com.duoc.speedfastapp.model.Repartidor;
 
-public class VentanaRegistroPedido extends JFrame {
+public class VentanaRegistroRepartidor extends JFrame {
 
-	private JTextField txtDireccion;
-	private JComboBox<TipoPedido> cboTipo;
+	private JTextField txtNombre;
 	private JButton btnGuardar;
-	private ControladorPedido controlador;
+	private ControladorRepartidor controlador;
 
-	public VentanaRegistroPedido(String titulo, JFrame ventanaPadre)
+	public VentanaRegistroRepartidor(String titulo, JFrame ventanaPadre)
 	{
 		super(titulo);
-		this.controlador = new ControladorPedido();
+		this.controlador = new ControladorRepartidor();
 		setSize(400,320);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -69,37 +63,34 @@ public class VentanaRegistroPedido extends JFrame {
 		panelFormulario.setLayout(new GridLayout( 5, 2, 10, 10));
 		panelFormulario.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		panelFormulario.add(new JLabel("Agregar nuevo Pedido"));
+		panelFormulario.add(new JLabel("Agregar nuevo Repartidor"));
 		panelFormulario.add(new JLabel(""));
 
-		panelFormulario.add(new JLabel("Dirección:"));
-		txtDireccion = new JTextField();
-		panelFormulario.add(txtDireccion);
+		panelFormulario.add(new JLabel("Nombre repartidor:"));
+		txtNombre = new JTextField();
+		panelFormulario.add(txtNombre);
 
-		panelFormulario.add(new JLabel("Tipo de pedido:"));
-		cboTipo = new JComboBox<>(TipoPedido.values());
-		panelFormulario.add(cboTipo);
-
-		panelFormulario.add(new JLabel());
+		panelFormulario.add(new JLabel(""));
 		btnGuardar = new JButton("Guardar");
 		panelFormulario.add(btnGuardar);
 
-		panelFormulario.add(new JLabel());
+		panelFormulario.add(new JLabel(""));
+		panelFormulario.add(new JLabel(""));
 
 		add(panelFormulario, BorderLayout.CENTER);
-		btnGuardar.addActionListener(e -> guardarPedido());
+		btnGuardar.addActionListener(e -> guardarRepartidor());
 
 		JPanel panel2 = new JPanel();
+		//panel2.setBackground(Color.BLUE);
 		add(panel2, BorderLayout.CENTER);
 
 	}
 
-	private void guardarPedido()
+	private void guardarRepartidor()
 	{
-		String direccion = txtDireccion.getText().trim();
-		String tipo = cboTipo.getSelectedItem().toString();
+		String nombre = txtNombre.getText().trim();
 
-		if (direccion.isEmpty()){
+		if (nombre.isEmpty()){
 			JOptionPane.showMessageDialog(
 				this,
 				"Por favor complete todos los campos.",
@@ -109,22 +100,11 @@ public class VentanaRegistroPedido extends JFrame {
 			return;
 		}
 
-		Pedido pedido;
+		Repartidor nuevoRepartidor = new Repartidor(0, nombre, "");
 
-		switch (tipo) {
-			case "Comida":
-				pedido = new PedidoComida( 0, direccion, TipoPedido.COMIDA.name(), "PENDIENTE");
-				break;
-			case "Encomienda":
-				pedido = new PedidoEncomienda(0, direccion, TipoPedido.ENCOMIENDA.name(), "PENDIENTE");
-				break;
-			case "Express":
-				pedido = new PedidoExpress(0, direccion, TipoPedido.EXPRESS.name(), "PENDIENTE");
-				break;
-			default:
-				throw new IllegalArgumentException("Tipo de pedido no válido");
-		}
-		controlador.guardar(pedido);
+		this.controlador.guardar(nuevoRepartidor);
 	}
-	
+
+
+
 }

@@ -4,16 +4,15 @@ public abstract class Pedido {
 
 	private int id;
 	private String direccionEntrega;
-	private double distanciaKm;
 	private String estado;
 	private String tipo;
 
-	public Pedido(int nro_pedido, String direccion, double distancia, String tipoPedido){
+	public Pedido(int nro_pedido, String direccionEntrega, String tipoPedido, String estadoPedido){
 		this.id               = nro_pedido;
-		this.direccionEntrega = direccion;
-		this.distanciaKm      = distancia;
-		this.estado           = "PENDIENTE";
+		this.direccionEntrega = direccionEntrega;
 		this.tipo             = tipoPedido;
+		this.estado           = estadoPedido;
+		
 	}
 
 	public int getNroPedido(){ return this.id; }
@@ -21,9 +20,6 @@ public abstract class Pedido {
 
 	public String getDireccionEntrega(){ return this.direccionEntrega; }
 	public void setDireccionEntrega(String direccion){ this.direccionEntrega=direccion; }
-
-	public double getDistanciaKm(){ return this.distanciaKm; }
-	public void setDistanciaKm(double km){ this.distanciaKm=km; }
 
 	public String getEstado(){ return this.estado; }
 	public void setEstado(String nuevoEstado){ this.estado=nuevoEstado; }
@@ -40,7 +36,7 @@ public abstract class Pedido {
 			"-------------------------- \n" +
 			"- ID-Pedido #" + this.id + "\n" +
 			"- Direccion: " + this.direccionEntrega + "\n" +
-			"- Distancia: " + this.distanciaKm + "\n" +
+			"- Tipo: " + this.tipo + "\n" +
 			"- Estado: " + this.estado + "\n"
 		);
 	}

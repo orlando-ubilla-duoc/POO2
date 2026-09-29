@@ -1,11 +1,11 @@
 package com.duoc.speedfastapp.view;
 
-import com.duoc.speedfastapp.controller.ControladorPedido;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,10 +16,8 @@ import javax.swing.JPanel;
 public class VentanaPrincipal {
 
 	JFrame ventana;
-	private ControladorPedido controlador;
 
-	public VentanaPrincipal(String tituloVentana, ControladorPedido c){
-		this.controlador = c;
+	public VentanaPrincipal(String tituloVentana){
         this.ventana     = new JFrame(tituloVentana);
 		this.ventana.setSize(800,480);
 		this.ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // cerrar app
@@ -33,7 +31,7 @@ public class VentanaPrincipal {
 	{
 
 		JPanel panelMenu = new JPanel();
-		panelMenu.setLayout(new GridLayout( 4, 1, 10, 10));
+		panelMenu.setLayout(new GridLayout( 5, 1, 10, 10));
 		panelMenu.setBorder(BorderFactory.createEmptyBorder(15, 50, 50, 50));
 
 		JLabel lblDescripcion = new JLabel("Bienvenido al sistema de gestion.");
@@ -50,11 +48,13 @@ public class VentanaPrincipal {
 		// crear botones para el menu
 		JButton boton1 = new JButton("1. Registrar pedido");
 		boton1.setFont(new Font("Arial", Font.PLAIN, 20));
-		JButton boton2 = new JButton("2. Listar pedidos");
+		JButton boton4 = new JButton("2. Registrar repartidor");
+		boton4.setFont(new Font("Arial", Font.PLAIN, 20));
+		JButton boton2 = new JButton("3. Listar pedidos");
 		boton2.setFont(new Font("Arial", Font.PLAIN, 20));
 		//JButton boton3 = new JButton("3. Asignar repartidor / Iniciar entrega");
 		//boton3.setFont(new Font("Arial", Font.PLAIN, 14));
-		JButton boton3 = new JButton("3. Salir");
+		JButton boton3 = new JButton("4. Salir");
 		boton3.setFont(new Font("Arial", Font.PLAIN, 18));
 
 		boton1.addActionListener(new ActionListener() {
@@ -63,7 +63,7 @@ public class VentanaPrincipal {
 				// Oculta ventana principal
 				ventana.setVisible(false);
 				// llama ventana hijo, con formulario
-				VentanaRegistroPedido ventanaRegistro = new VentanaRegistroPedido( tituloPadre+" - Registrar pedidos", ventana, controlador);
+				VentanaRegistroPedido ventanaRegistro = new VentanaRegistroPedido( tituloPadre+" - Registrar pedidos", ventana);
 			}
 		});
 
@@ -73,7 +73,7 @@ public class VentanaPrincipal {
 				// Oculta ventana principal
 				ventana.setVisible(false);
 				// llama ventana hijo, con listado de datos
-				VentanaListaPedidos ventanaListado = new VentanaListaPedidos( tituloPadre+" - Listado pedidos", ventana, controlador);
+				VentanaListaPedidos ventanaListado = new VentanaListaPedidos( tituloPadre+" - Listado pedidos", ventana);
 			}
 		});
 
@@ -84,13 +84,23 @@ public class VentanaPrincipal {
 			}
 		});
 
+		boton4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				// Oculta ventana principal
+				ventana.setVisible(false);
+				// llama ventana hijo, con listado de datos
+				VentanaRegistroRepartidor ventanaRepartidor = new VentanaRegistroRepartidor( tituloPadre+" - Registrar repartidor", ventana);
+			}
+		});
+
 		// Agrega elementos al menu
 		panelMenu.add(lblDescripcion);
 		panelMenu.add(boton1);
+		panelMenu.add(boton4);
 		panelMenu.add(boton2);
 		panelMenu.add(boton3);
 
-		//ventana.add(panelMenu, BorderLayout.CENTER);
 		ventana.add(panelLogo);
 		ventana.add(panelMenu);
 	}

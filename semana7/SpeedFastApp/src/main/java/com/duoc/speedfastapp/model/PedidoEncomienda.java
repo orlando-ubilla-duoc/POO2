@@ -2,8 +2,8 @@ package com.duoc.speedfastapp.model;
 
 public class PedidoEncomienda extends Pedido {
 
-	public PedidoEncomienda(int nro_pedido, String direccion, double distancia_km){
-		super(nro_pedido,direccion,distancia_km,"Encomienda");
+	public PedidoEncomienda(int nro_pedido, String direccionEntrega, String tipoPedido, String estadoPedido){
+		super(nro_pedido,direccionEntrega,tipoPedido,estadoPedido);
 	}
 
 	/**

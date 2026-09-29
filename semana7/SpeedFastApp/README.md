@@ -1,5 +1,5 @@
 ![Duoc UC](https://www.duoc.cl/wp-content/uploads/2022/09/logo-0.png)
-# 🧠 Evaluación Formativa 4 – Desarrollo Orientado a Objetos II
+# 🧠 Evaluación Formativa 5 – Desarrollo Orientado a Objetos II
 
 ## 👤 Autor del proyecto
 - **Nombre completo:** Orlando Ubilla Orellana
@@ -10,7 +10,8 @@
 ---
 
 ## 📘 Descripción general del sistema
-Este proyecto corresponde a la Evaluación Formativa 4 *"Diseñando interfaces gráficas para aplicaciones en Java"*.<br>
+Este proyecto corresponde a la Evaluación Formativa 5 *"Conectando aplicaciones Java con bases de datos mediante JDBC"*.<br>
+Objetivo: Configuración de la conexión entre una aplicación Java y un sistema de base de datos relacional, aplicando operaciones básicas para gestionar la información.
 <br>
 .
 <br>
@@ -43,19 +44,22 @@ Este proyecto corresponde a la Evaluación Formativa 4 *"Diseñando interfaces g
 2. ingresar a directorio correspondiente a actividad de la semana 6
 
     ```bash
-        cd semana6/SpeedFastApp/
+        cd semana7/SpeedFastApp/
     ```
 
-3. Desde carpeta src, ubicarse en directorio main/java/com/duoc/speedfastapp/view, y ejecutar el archivo `Main.java` de la siguiente forma.
+3. Desde la raiz del proyecto, compilar via maven.
 
     ```bash
-        cd src/main/java/com/duoc/speedfastapp/view
-        java Main.java
+        mvn clean compile
     ```
 
+    Luego de compilar, ejecutar:
+    ```bash
+        mvn exec:java -Dexec.mainClass="com.duoc.speedfastapp.Main"
+    ```
 
 ---
 
-**Repositorio GitHub:** \[https://github.com/orlando-ubilla-duoc/POO2/tree/master/semana6]
+**Repositorio GitHub:** \[https://github.com/orlando-ubilla-duoc/POO2/tree/master/semana7]
 
-**Fecha de entrega:** \[21/09/2026]
+**Fecha de entrega:** \[28/09/2026]

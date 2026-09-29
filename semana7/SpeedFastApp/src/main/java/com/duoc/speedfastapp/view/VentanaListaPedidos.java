@@ -1,9 +1,8 @@
 package com.duoc.speedfastapp.view;
 
-import com.duoc.speedfastapp.controller.ControladorPedido;
-import com.duoc.speedfastapp.model.Pedido;
-
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.BoxLayout;
@@ -12,8 +11,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import com.duoc.speedfastapp.controller.ControladorPedido;
+import com.duoc.speedfastapp.model.Pedido;
 
 
 public class VentanaListaPedidos extends JFrame {
@@ -22,10 +21,10 @@ public class VentanaListaPedidos extends JFrame {
 	private DefaultTableModel modeloTabla;
 	private ControladorPedido controlador;
 
-	public VentanaListaPedidos(String titulo, JFrame ventanaPadre, ControladorPedido c)
+	public VentanaListaPedidos(String titulo, JFrame ventanaPadre)
 	{
 		super(titulo);
-		this.controlador = c;
+		this.controlador = new ControladorPedido();
 		setSize(600, 400);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -69,7 +68,7 @@ public class VentanaListaPedidos extends JFrame {
 	public void refrescarTabla()
 	{
 		modeloTabla.setRowCount(0); // limpia tabla
-		List<Pedido> pedidos = controlador.getPedidos();
+		List<Pedido> pedidos = controlador.listarPedidos(0);
 		for (Pedido pedido : pedidos)
 		{
 			modeloTabla.addRow(new Object[]{

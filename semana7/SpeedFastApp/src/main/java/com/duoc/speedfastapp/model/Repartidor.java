@@ -6,13 +6,18 @@ package com.duoc.speedfastapp.model;
  */
 public class Repartidor implements Runnable {
 
+	private int id;
 	private String nombre;
 	private String rut;
 
-	public Repartidor(String nombre, String rut){
+	public Repartidor(int pk, String nombre, String rut){
+		this.id        = pk;
 		this.nombre    = nombre;
 		this.rut       = rut;
 	}
+
+	public int getId(){ return this.id; }
+	public void setId(int pk){ this.id=pk; }
 
 	public String getNombre(){ return this.nombre; }
 	public void setNombre(String nombre){ this.nombre=nombre; }

@@ -9,10 +9,8 @@ public class Main {
 
 	public static void main(String[] args)
 	{
-		ControladorPedido controladorPedidos = new ControladorPedido();
-
 		SwingUtilities.invokeLater(() -> {
-			VentanaPrincipal programa = new VentanaPrincipal( "SpeedFast v1.3", controladorPedidos);
+			VentanaPrincipal programa = new VentanaPrincipal( "SpeedFast v1.3");
 		});
 	}
 }
