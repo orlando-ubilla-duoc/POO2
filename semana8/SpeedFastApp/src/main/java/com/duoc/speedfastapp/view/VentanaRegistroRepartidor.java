@@ -1,6 +1,7 @@
 package com.duoc.speedfastapp.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -27,7 +28,6 @@ public class VentanaRegistroRepartidor extends JFrame {
 
 	private JTextField txtId;
 	private JTextField txtNombre;
-	private JButton btnGuardar;
 	private JTable tablaRegistros;
 	private DefaultTableModel modeloTabla;
 	private ControladorRepartidor controlador;
@@ -83,7 +83,7 @@ public class VentanaRegistroRepartidor extends JFrame {
 		panelFormulario.add(new JLabel(""));
 
 		// row 3
-		btnGuardar = new JButton("Agregar");
+		JButton btnGuardar = new JButton("Agregar");
 		JButton btnActualiza = new JButton("Actualizar");
 		JButton btnBorrar = new JButton("Borrar");
 
@@ -99,6 +99,7 @@ public class VentanaRegistroRepartidor extends JFrame {
 
 		JPanel panelGrid = new JPanel();
 		panelGrid.setBorder(new TitledBorder("Datos existentes"));
+		panelGrid.setLayout(new BorderLayout());
 		String[] columnas = {
 			"ID",
 			"Nombre repartidor"
@@ -108,11 +109,12 @@ public class VentanaRegistroRepartidor extends JFrame {
 		tablaRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tablaRegistros.getSelectionModel().addListSelectionListener(e -> tablaClickEvt(e));
 		JScrollPane scrollPanel = new JScrollPane(tablaRegistros);
+		scrollPanel.setBackground(Color.WHITE);
 		panelGrid.add(scrollPanel, BorderLayout.CENTER);
 		add(panelGrid, BorderLayout.CENTER);
 
 		cargaDatosTabla();
-
+		txtNombre.requestFocus();
 	}
 
 	/**
@@ -121,6 +123,7 @@ public class VentanaRegistroRepartidor extends JFrame {
 	private void limpiarTextfields(){
 		txtId.setText("");
 		txtNombre.setText("");
+		txtNombre.requestFocus();
 	}
 
 	/**

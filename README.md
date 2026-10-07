@@ -19,7 +19,8 @@ Repositorios generales para actividades formativas de cada semana.
 ├── semana4/      # Semana 4, Actividad Formativa
 ├── semana5/      # Semana 5, Actividad Sumativa 2
 ├── semana6/      # Semana 4, Actividad Formativa
-└── semana7/      # Semana 7, Actividad Formativa
+├── semana7/      # Semana 7, Actividad Formativa
+└── semana8/      # Semana 8, Actividad Sumativa 3
 ````
 
 ---
