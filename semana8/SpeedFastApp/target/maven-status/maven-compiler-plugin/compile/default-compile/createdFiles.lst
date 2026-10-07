@@ -1,7 +1,7 @@
 com/duoc/speedfastapp/controller/ControladorPedido.class
-com/duoc/speedfastapp/controller/ConexionBaseDatos.class
 com/duoc/speedfastapp/view/VentanaPrincipal$1.class
 com/duoc/speedfastapp/dao/impl/RepartidorDAOImpl.class
+com/duoc/speedfastapp/view/VentanaRegistroEntrega$1.class
 com/duoc/speedfastapp/view/VentanaRegistroRepartidor.class
 com/duoc/speedfastapp/view/VentanaRegistroPedido.class
 com/duoc/speedfastapp/dao/PedidoDAO.class
@@ -10,7 +10,6 @@ com/duoc/speedfastapp/view/VentanaRegistroRepartidor$1.class
 com/duoc/speedfastapp/model/PedidoComida.class
 com/duoc/speedfastapp/model/PedidoExpress.class
 com/duoc/speedfastapp/view/VentanaRegistroPedido$1.class
-com/duoc/speedfastapp/view/VentanaListaPedidos.class
 com/duoc/speedfastapp/config/Inicializador.class
 com/duoc/speedfastapp/model/PedidoEncomienda.class
 com/duoc/speedfastapp/dao/impl/PedidoDAOImpl.class
@@ -21,7 +20,6 @@ com/duoc/speedfastapp/model/Entrega.class
 com/duoc/speedfastapp/dao/RepartidorDAO.class
 com/duoc/speedfastapp/controller/ControladorEntrega.class
 com/duoc/speedfastapp/dao/impl/EntregaDAOImpl.class
-com/duoc/speedfastapp/view/VentanaListaPedidos$1.class
 com/duoc/speedfastapp/Main.class
 com/duoc/speedfastapp/model/Repartidor.class
 com/duoc/speedfastapp/view/VentanaPrincipal.class

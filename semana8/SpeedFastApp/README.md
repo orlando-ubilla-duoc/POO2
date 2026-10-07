@@ -34,6 +34,50 @@ Utilizando la programación orientada a objetos junto con la implementación de 
 
 ---
 
+## Configuracion BBDD
+
+Se debe crear una base de datos MySql con los siguientes datos:
+
+```plaintext
+    database address = localhost
+    service port     = 3306
+    database name    = speedfast_db
+    database user    = root
+    database passwd  = bmxkdhiu1234
+
+````
+
+y una vez creada, dentro correr el Script para crear las tablas requeridas:
+
+```plaintext
+    CREATE TABLE repartidores (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nombre VARCHAR(100) NOT NULL
+    );
+
+    CREATE TABLE pedidos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        direccion VARCHAR(100) NOT NULL,
+        tipo ENUM('COMIDA','ENCOMIENDA','EXPRESS'),
+        estado ENUM('PENDIENTE','EN_REPARTO','ENTREGADO')
+        -- COMIDA | ENCOMIENDA | EXPRESS
+        -- PENDIENTE | EN_REPARTO | ENTREGADO
+    );
+
+    CREATE TABLE entregas (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        id_pedido INT NOT NULL,
+        id_repartidor INT NOT NULL,
+        fecha DATE NOT NULL,
+        hora TIME,
+        FOREIGN KEY (id_pedido) REFERENCES pedidos(id),
+        FOREIGN KEY (id_repartidor) REFERENCES repartidores(id)
+    );
+
+````
+
+---
+
 
 
 ## ⚙️ Instrucciones para clonar y ejecutar el proyecto

@@ -59,8 +59,6 @@ public class VentanaPrincipal {
 		boton4.setFont(new Font("Arial", Font.PLAIN, 20));
 		JButton boton2 = new JButton("3. Gestionar Entregas");
 		boton2.setFont(new Font("Arial", Font.PLAIN, 20));
-		//JButton boton3 = new JButton("3. Asignar repartidor / Iniciar entrega");
-		//boton3.setFont(new Font("Arial", Font.PLAIN, 14));
 		JButton boton3 = new JButton("4. Salir");
 		boton3.setFont(new Font("Arial", Font.PLAIN, 18));
 
@@ -84,7 +82,11 @@ public class VentanaPrincipal {
 				// Ventana Gestion Entregas
 				EntregaDAOImpl entregaDAO = new EntregaDAOImpl();
 				ControladorEntrega controladorEntrega = new ControladorEntrega(entregaDAO);
-				VentanaRegistroEntrega ventanaListado = new VentanaRegistroEntrega( tituloPadre+" - Gestion entregas", ventana, controladorEntrega);
+				PedidoDAOImpl pedidoDAO = new PedidoDAOImpl();
+				ControladorPedido controladorPedido = new ControladorPedido(pedidoDAO);
+				RepartidorDAOImpl repartidorDAO = new RepartidorDAOImpl();
+				ControladorRepartidor controladorRepartidor = new ControladorRepartidor(repartidorDAO);
+				VentanaRegistroEntrega ventanaEntrega = new VentanaRegistroEntrega( tituloPadre+" - Gestion entregas", ventana, controladorEntrega, controladorPedido, controladorRepartidor);
 			}
 		});
 

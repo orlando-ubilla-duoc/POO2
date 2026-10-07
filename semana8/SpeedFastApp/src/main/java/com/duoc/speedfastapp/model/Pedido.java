@@ -31,6 +31,8 @@ public abstract class Pedido {
 
 	@Override 
 	public String toString(){
+		return this.id + " - " + this.direccionEntrega;
+		/*
 		return(
 			"Clase '"+this.getClass().getSimpleName() + "' \n" +
 			"-------------------------- \n" +
@@ -39,6 +41,7 @@ public abstract class Pedido {
 			"- Tipo: " + this.tipo + "\n" +
 			"- Estado: " + this.estado + "\n"
 		);
+		*/
 	}
 
 }

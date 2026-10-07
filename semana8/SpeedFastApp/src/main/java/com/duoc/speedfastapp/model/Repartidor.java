@@ -36,10 +36,13 @@ public class Repartidor implements Runnable {
 
 	@Override
 	public String toString(){
+		return this.id + " - " + this.nombre;
+		/*
 		return (
 			"Class " + this.getClass().getSimpleName() + ": \n" +
 			"- nombre=" + this.nombre + "\n"
 		);
+		*/
 	}
 
 	@Override

@@ -63,7 +63,7 @@ public class VentanaRegistroPedido extends JFrame {
 		});
 
 		setVisible(true);
-
+		txtDireccion.requestFocus();
 	}
 
 	private void ConfigurarComponentes(){
@@ -128,7 +128,6 @@ public class VentanaRegistroPedido extends JFrame {
 		add(panelGrid, BorderLayout.CENTER);
 
 		cargaDatosTabla();
-		txtDireccion.requestFocus();
 	}
 
 	/**

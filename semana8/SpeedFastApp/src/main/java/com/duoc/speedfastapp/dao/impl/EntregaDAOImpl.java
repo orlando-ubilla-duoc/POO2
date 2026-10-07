@@ -23,33 +23,10 @@ public class EntregaDAOImpl implements EntregaDAO {
 	}
 
 	@Override
-	public boolean create(Entrega nuevaEntrega) throws SQLException
-	{
-		String sql = "INSERT INTO entregas(id_pedido, id_repartidor, fecha, hora) VALUES (?, ?, ?, ?)";
-		try (
-			Connection conn = ConexionDB.obtenerConexion();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-		){
-			stmt.setInt(1, nuevaEntrega.getIdPedido());
-			stmt.setInt(2, nuevaEntrega.getIdRepartidor());
-			stmt.setDate(3, (Date) nuevaEntrega.getFecha());
-			stmt.setTime(4, Time.valueOf(nuevaEntrega.getHora()));
-
-			stmt.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Registro agregado correctamente.");
-		} catch (SQLException e){
-			System.err.print(e);
-			JOptionPane.showMessageDialog(null, "Error al guardar el registro en la base de datos.");
-			return false;
-		}
-		return true;
-	}
-
-	@Override
 	public List<Entrega> readAll() throws SQLException
 	{
 		List<Entrega> entregas = new ArrayList<>();
-		String sql = "SELECT * FROM entregas ORDER BY id DESC;";
+		String sql = "SELECT e.*, p.direccion, r.nombre FROM entregas e, pedidos p, repartidores r WHERE e.id_pedido=p.id AND e.id_repartidor=r.id ORDER BY e.id DESC;";
 
 		try (
 			Connection conn = ConexionDB.obtenerConexion();
@@ -58,12 +35,16 @@ public class EntregaDAOImpl implements EntregaDAO {
 		){	
 			while (rs.next())
 			{
+				java.util.Date utilDate = (Date) rs.getDate("fecha");
 				Entrega tuplaEntrega = new Entrega(
 					rs.getInt("id"),
 					rs.getInt("id_pedido"),
 					rs.getInt("id_repartidor"),
-					(Date) rs.getDate("fecha"),
-					rs.getTime("hora").toLocalTime()
+					utilDate,
+					//(Date) rs.getDate("fecha"),
+					rs.getTime("hora").toLocalTime(),
+					rs.getString("direccion"),
+					rs.getString("nombre")
 				);
 				entregas.add(tuplaEntrega);
 			}
@@ -80,6 +61,30 @@ public class EntregaDAOImpl implements EntregaDAO {
 	}
 
 	@Override
+	public boolean create(Entrega nuevaEntrega) throws SQLException
+	{
+		String sql = "INSERT INTO entregas(id_pedido, id_repartidor, fecha, hora) VALUES (?, ?, ?, ?)";
+		try (
+			Connection conn = ConexionDB.obtenerConexion();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+		){
+			Date sqlDate = new Date(nuevaEntrega.getFecha().getTime());
+			stmt.setInt(1, nuevaEntrega.getIdPedido());
+			stmt.setInt(2, nuevaEntrega.getIdRepartidor());
+			stmt.setDate(3, sqlDate);
+			stmt.setTime(4, Time.valueOf(nuevaEntrega.getHora()));
+
+			stmt.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Registro agregado correctamente.");
+		} catch (SQLException e){
+			System.err.print(e);
+			JOptionPane.showMessageDialog(null, "Error al guardar el registro en la base de datos.");
+			return false;
+		}
+		return true;
+	}
+
+	@Override
 	public boolean update(Entrega cambiaEntrega) throws SQLException
 	{
 		String sql = "UPDATE entregas SET id_pedido=?, id_repartidor=?, fecha=?, hora=? WHERE id=? ";
@@ -87,9 +92,10 @@ public class EntregaDAOImpl implements EntregaDAO {
 			Connection conn = ConexionDB.obtenerConexion();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 		){
+			Date sqlDate = new Date(cambiaEntrega.getFecha().getTime());
 			stmt.setInt(1, cambiaEntrega.getIdPedido());
 			stmt.setInt(2, cambiaEntrega.getIdRepartidor());
-			stmt.setDate(3, (Date) cambiaEntrega.getFecha());
+			stmt.setDate(3, sqlDate);
 			stmt.setTime(4, Time.valueOf(cambiaEntrega.getHora()));
 			stmt.setInt(5, cambiaEntrega.getId());
 			stmt.executeUpdate();

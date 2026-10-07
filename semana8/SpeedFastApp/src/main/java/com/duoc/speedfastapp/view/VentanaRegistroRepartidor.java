@@ -57,7 +57,7 @@ public class VentanaRegistroRepartidor extends JFrame {
 		});
 
 		setVisible(true);
-
+		txtNombre.requestFocus();
 	}
 
 	private void ConfigurarComponentes(){
@@ -114,7 +114,6 @@ public class VentanaRegistroRepartidor extends JFrame {
 		add(panelGrid, BorderLayout.CENTER);
 
 		cargaDatosTabla();
-		txtNombre.requestFocus();
 	}
 
 	/**
