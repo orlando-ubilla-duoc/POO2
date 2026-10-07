@@ -3,7 +3,6 @@ package com.duoc.speedfastapp.view;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -12,7 +11,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.duoc.speedfastapp.controller.ControladorPedido;
-import com.duoc.speedfastapp.model.Pedido;
 
 
 public class VentanaListaPedidos extends JFrame {
@@ -24,7 +22,6 @@ public class VentanaListaPedidos extends JFrame {
 	public VentanaListaPedidos(String titulo, JFrame ventanaPadre)
 	{
 		super(titulo);
-		this.controlador = new ControladorPedido();
 		setSize(600, 400);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,6 +64,7 @@ public class VentanaListaPedidos extends JFrame {
 
 	public void refrescarTabla()
 	{
+		/*
 		modeloTabla.setRowCount(0); // limpia tabla
 		List<Pedido> pedidos = controlador.listarPedidos(0);
 		for (Pedido pedido : pedidos)
@@ -78,6 +76,7 @@ public class VentanaListaPedidos extends JFrame {
 				pedido.getEstado()
 			});
 		}
+		*/
 	}
 
 

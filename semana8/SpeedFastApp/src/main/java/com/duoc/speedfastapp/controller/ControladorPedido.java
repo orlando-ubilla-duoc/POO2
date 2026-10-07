@@ -6,9 +6,11 @@ import java.util.List;
 import com.duoc.speedfastapp.dao.PedidoDAO;
 import com.duoc.speedfastapp.model.Pedido;
 
-
-public class ControladorPedido
-{
+/**
+ * Maneja operaciones CRUD de Pedido
+ * CLASS ControladorPedido
+ */
+public class ControladorPedido {
 
 	private final PedidoDAO pedidoDAO;
 
@@ -24,17 +26,37 @@ public class ControladorPedido
 	 */
 	public void guardar(Pedido pedido) throws SQLException
 	{
-		this.pedidoDAO.insertar(pedido);
+		this.pedidoDAO.create(pedido);
+	}
+
+	/**
+	 * Actualiza registro existente de Pedido
+	 * @param pedido
+	 * @throws SQLException
+	 */
+	public void actualizar(Pedido pedido) throws SQLException
+	{
+		this.pedidoDAO.update(pedido);
 	}
 
 	/**
 	 * Recuperar todos los registros de Pedidos
-	 * @param limitLast Limite de ultimos registros a recuperar. Cero para ignorar.
 	 * @return List Pedido
+	 * @throws SQLException
 	 */
-	public List<Pedido> listarPedidos(int limitLast) throws SQLException
+	public List<Pedido> listarPedidos() throws SQLException
 	{
-		return this.pedidoDAO.listarTodos(0);
+		return this.pedidoDAO.readAll();
 	}
 	
+	/**
+	 * Borrar permanentemente registro de la base de datos
+	 * @param id
+	 * @throws SQLException
+	 */
+	public void borrar(int id) throws SQLException
+	{
+		this.pedidoDAO.delete(id);
+	}
+
 }

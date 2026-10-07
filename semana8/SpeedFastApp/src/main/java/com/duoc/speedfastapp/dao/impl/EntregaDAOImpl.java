@@ -11,7 +11,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import com.duoc.speedfastapp.controller.ConexionBaseDatos;
+import com.duoc.speedfastapp.config.ConexionDB;
 import com.duoc.speedfastapp.dao.EntregaDAO;
 import com.duoc.speedfastapp.model.Entrega;
 
@@ -19,7 +19,7 @@ public class EntregaDAOImpl implements EntregaDAO {
 
 	public EntregaDAOImpl()
 	{
-		// TODO
+		// vacio.-
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class EntregaDAOImpl implements EntregaDAO {
 	{
 		String sql = "INSERT INTO entregas(id_pedido, id_repartidor, fecha, hora) VALUES (?, ?, ?, ?)";
 		try (
-			Connection conn = ConexionBaseDatos.conectar();
+			Connection conn = ConexionDB.obtenerConexion();
             PreparedStatement stmt = conn.prepareStatement(sql);
 		){
 			stmt.setInt(1, nuevaEntrega.getIdPedido());
@@ -52,7 +52,7 @@ public class EntregaDAOImpl implements EntregaDAO {
 		String sql = "SELECT * FROM entregas ORDER BY id DESC;";
 
 		try (
-			Connection conn = ConexionBaseDatos.conectar();
+			Connection conn = ConexionDB.obtenerConexion();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 		){	
@@ -84,7 +84,7 @@ public class EntregaDAOImpl implements EntregaDAO {
 	{
 		String sql = "UPDATE entregas SET id_pedido=?, id_repartidor=?, fecha=?, hora=? WHERE id=? ";
 		try (
-			Connection conn = ConexionBaseDatos.conectar();
+			Connection conn = ConexionDB.obtenerConexion();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 		){
 			stmt.setInt(1, cambiaEntrega.getIdPedido());
@@ -106,7 +106,7 @@ public class EntregaDAOImpl implements EntregaDAO {
 	{
 		String sql = "DELETE FROM entregas WHERE id=? ";
 		try (
-			Connection conn = ConexionBaseDatos.conectar();
+			Connection conn = ConexionDB.obtenerConexion();
 			PreparedStatement stmt = conn.prepareStatement(sql)
 		){
 			stmt.setInt(1, idKey);

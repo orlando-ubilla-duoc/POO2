@@ -13,6 +13,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.duoc.speedfastapp.controller.ControladorEntrega;
+import com.duoc.speedfastapp.controller.ControladorPedido;
+import com.duoc.speedfastapp.controller.ControladorRepartidor;
+import com.duoc.speedfastapp.dao.impl.EntregaDAOImpl;
+import com.duoc.speedfastapp.dao.impl.PedidoDAOImpl;
+import com.duoc.speedfastapp.dao.impl.RepartidorDAOImpl;
+
 public class VentanaPrincipal {
 
 	JFrame ventana;
@@ -46,11 +53,11 @@ public class VentanaPrincipal {
 		panelLogo.add(labelLogo);
 
 		// crear botones para el menu
-		JButton boton1 = new JButton("1. Registrar pedido");
+		JButton boton1 = new JButton("1. Registrar Pedido");
 		boton1.setFont(new Font("Arial", Font.PLAIN, 20));
-		JButton boton4 = new JButton("2. Registrar repartidor");
+		JButton boton4 = new JButton("2. Registrar Repartidor");
 		boton4.setFont(new Font("Arial", Font.PLAIN, 20));
-		JButton boton2 = new JButton("3. Listar pedidos");
+		JButton boton2 = new JButton("3. Gestionar Entregas");
 		boton2.setFont(new Font("Arial", Font.PLAIN, 20));
 		//JButton boton3 = new JButton("3. Asignar repartidor / Iniciar entrega");
 		//boton3.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -62,8 +69,10 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent e){
 				// Oculta ventana principal
 				ventana.setVisible(false);
-				// llama ventana hijo, con formulario
-				VentanaRegistroPedido ventanaRegistro = new VentanaRegistroPedido( tituloPadre+" - Registrar pedidos", ventana);
+				// Ventana Registo Pedido
+				PedidoDAOImpl pedidoDAO = new PedidoDAOImpl();
+				ControladorPedido controladorPedido = new ControladorPedido(pedidoDAO);
+				VentanaRegistroPedido ventanaPedido = new VentanaRegistroPedido( tituloPadre+" - Registrar pedidos", ventana, controladorPedido);
 			}
 		});
 
@@ -72,15 +81,10 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent e){
 				// Oculta ventana principal
 				ventana.setVisible(false);
-				// llama ventana hijo, con listado de datos
-				VentanaListaPedidos ventanaListado = new VentanaListaPedidos( tituloPadre+" - Listado pedidos", ventana);
-			}
-		});
-
-		boton3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e){
-				System.exit(0);
+				// Ventana Gestion Entregas
+				EntregaDAOImpl entregaDAO = new EntregaDAOImpl();
+				ControladorEntrega controladorEntrega = new ControladorEntrega(entregaDAO);
+				VentanaRegistroEntrega ventanaListado = new VentanaRegistroEntrega( tituloPadre+" - Gestion entregas", ventana, controladorEntrega);
 			}
 		});
 
@@ -89,8 +93,17 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent e){
 				// Oculta ventana principal
 				ventana.setVisible(false);
-				// llama ventana hijo, con listado de datos
-				VentanaRegistroRepartidor ventanaRepartidor = new VentanaRegistroRepartidor( tituloPadre+" - Registrar repartidor", ventana);
+				// Ventana Registro Repartidor
+				RepartidorDAOImpl repartidorDAO = new RepartidorDAOImpl();
+				ControladorRepartidor controladorRepartidor = new ControladorRepartidor(repartidorDAO);
+				VentanaRegistroRepartidor ventanaRepartidor = new VentanaRegistroRepartidor( tituloPadre+" - Registrar repartidor", ventana, controladorRepartidor);
+			}
+		});
+
+		boton3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e){
+				System.exit(0);
 			}
 		});
 

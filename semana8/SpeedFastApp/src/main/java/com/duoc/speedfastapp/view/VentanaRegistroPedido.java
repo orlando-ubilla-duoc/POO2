@@ -13,7 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import com.duoc.speedfastapp.controller.ControladorPedido;
 import com.duoc.speedfastapp.model.Pedido;
@@ -27,12 +29,14 @@ public class VentanaRegistroPedido extends JFrame {
 	private JTextField txtDireccion;
 	private JComboBox<TipoPedido> cboTipo;
 	private JButton btnGuardar;
+	private JTable tablaRegistros;
+	private DefaultTableModel modeloTabla;
 	private ControladorPedido controlador;
 
-	public VentanaRegistroPedido(String titulo, JFrame ventanaPadre)
+	public VentanaRegistroPedido(String titulo, JFrame ventanaPadre, ControladorPedido ctr)
 	{
 		super(titulo);
-		this.controlador = new ControladorPedido();
+		this.controlador = ctr;
 		setSize(400,320);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -124,7 +128,13 @@ public class VentanaRegistroPedido extends JFrame {
 			default:
 				throw new IllegalArgumentException("Tipo de pedido no válido");
 		}
-		controlador.guardar(pedido);
+
+		try {
+			controlador.guardar(pedido);
+		} catch (Exception e) {
+			System.err.print(e);
+		}
+
 	}
 	
 }

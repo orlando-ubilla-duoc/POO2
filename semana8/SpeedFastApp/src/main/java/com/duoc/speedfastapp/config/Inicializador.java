@@ -43,7 +43,8 @@ public class Inicializador {
 		) {
 			return rs.next() && rs.getInt(1)==0;
 		} catch (Exception e) {
-			//
+			System.err.println(e);
+			return false;
 		}
 	}
 

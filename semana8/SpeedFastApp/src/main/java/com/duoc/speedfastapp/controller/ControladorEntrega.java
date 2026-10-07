@@ -1,37 +1,62 @@
 package com.duoc.speedfastapp.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
-import javax.swing.JOptionPane;
-
+import com.duoc.speedfastapp.dao.EntregaDAO;
 import com.duoc.speedfastapp.model.Entrega;
 
+/**
+ * Maneja operaciones CRUD de Entrega
+ * CLASS ControladorEntrega
+ */
 public class ControladorEntrega {
+
+	private final EntregaDAO entregaDAO;
 	
-	public ControladorEntrega(){
-		//
-	}
-
-	public boolean guardar(Entrega entrega)
+	public ControladorEntrega(EntregaDAO dao)
 	{
-		String sql = "INSERT INTO entrega(id_pedido, id_repartidor, fecha, hora) VALUES (?, ?, ?, ?)";
-
-		try (Connection conn = ConexionBaseDatos.conectar();
-            PreparedStatement stmt = conn.prepareStatement(sql))
-		{
-			stmt.setInt(1, entrega.getIdPedido());
-			stmt.setInt(2, entrega.getIdRepartidor());
-			stmt.setDate(3, new java.sql.Date(entrega.getFecha().getTime()));
-			stmt.setTime(4, java.sql.Time.valueOf(entrega.getHora()));
-			stmt.executeUpdate();
-			//JOptionPane.showMessageDialog(null, "Registro agregado correctamente.");
-		} catch (SQLException e){
-			System.err.print(e);
-			JOptionPane.showMessageDialog(null, "Error al guardar el registro en la base de datos.");
-			return false;
-		}
-		return true;
+		this.entregaDAO = dao;
 	}
+
+	/**
+	 * Guarda Entidado Entrega en la base de datos.
+	 * @param entrega
+	 * @throws SQLException
+	 */
+	public void guardar(Entrega entrega) throws SQLException
+	{
+		this.entregaDAO.create(entrega);
+	}
+
+	/**
+	 * Actualiza registro existente de Entrega
+	 * @param entrega
+	 * @throws SQLException
+	 */
+	public void actualizar(Entrega entrega) throws SQLException
+	{
+		this.entregaDAO.update(entrega);
+	}
+
+	/**
+	 * Recuperar todos los registros de Entregas
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Entrega> listarEntregas() throws SQLException
+	{
+		return this.entregaDAO.readAll();
+	}
+
+	/**
+	 * Borrar permanentemente registro de la base de datos
+	 * @param id
+	 * @throws SQLException
+	 */
+	public void borrar(int id) throws SQLException
+	{
+		this.entregaDAO.delete(id);
+	}
+
 }

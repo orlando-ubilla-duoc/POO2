@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+/**
+ * @deprecated 
+ * ConexionBaseDatos
+ */
 public class ConexionBaseDatos {
 
 	private static final String URL        = "jdbc:mysql://localhost:3306/db_poo2";

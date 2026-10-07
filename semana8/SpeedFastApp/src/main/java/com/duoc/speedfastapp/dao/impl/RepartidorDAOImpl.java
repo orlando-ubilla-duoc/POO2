@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import com.duoc.speedfastapp.controller.ConexionBaseDatos;
+import com.duoc.speedfastapp.config.ConexionDB;
 import com.duoc.speedfastapp.dao.RepartidorDAO;
 import com.duoc.speedfastapp.model.Repartidor;
 
@@ -17,7 +17,7 @@ public class RepartidorDAOImpl implements RepartidorDAO {
 
 	public RepartidorDAOImpl()
 	{
-		// TODO
+		// vacio.-
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class RepartidorDAOImpl implements RepartidorDAO {
 	{
 		String sql = "INSERT INTO repartidores(nombre) VALUES (?)";
 		try (
-			Connection conn = ConexionBaseDatos.conectar();
+			Connection conn = ConexionDB.obtenerConexion();
             PreparedStatement stmt = conn.prepareStatement(sql);
 		){
 			stmt.setString(1, nuevoRepartidor.getNombre());
@@ -46,7 +46,7 @@ public class RepartidorDAOImpl implements RepartidorDAO {
 		String sql = "SELECT * FROM repartidores ORDER BY id DESC;";
 
 		try (
-			Connection conn = ConexionBaseDatos.conectar();
+			Connection conn = ConexionDB.obtenerConexion();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 		){	
@@ -76,7 +76,7 @@ public class RepartidorDAOImpl implements RepartidorDAO {
 	{
 		String sql = "UPDATE repartidores SET nombre=? WHERE id=? ";
 		try (
-			Connection conn = ConexionBaseDatos.conectar();
+			Connection conn = ConexionDB.obtenerConexion();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 		){
 			stmt.setString(1, cambiaRepartidor.getNombre());
@@ -95,7 +95,7 @@ public class RepartidorDAOImpl implements RepartidorDAO {
 	{
 		String sql = "DELETE FROM repartidores WHERE id=? ";
 		try (
-			Connection conn = ConexionBaseDatos.conectar();
+			Connection conn = ConexionDB.obtenerConexion();
 			PreparedStatement stmt = conn.prepareStatement(sql)
 		){
 			stmt.setInt(1, idKey);
