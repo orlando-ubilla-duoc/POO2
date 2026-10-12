@@ -32,4 +32,8 @@ public class ControladorLibro {
 	public boolean borrar(int id) throws SQLException {
 		return this.libroDAO.delete(id);
 	}
+
+	public synchronized boolean actualizaStock(int idLibro, int addStock) throws SQLException {
+		return this.libroDAO.updateStock(idLibro, addStock);
+	}
 }

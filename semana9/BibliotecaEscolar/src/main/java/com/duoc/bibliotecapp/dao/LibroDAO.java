@@ -11,4 +11,5 @@ public interface LibroDAO {
 	public List<Libro> readAll() throws SQLException;
 	public boolean update(Libro cambiaLibro) throws SQLException;
 	public boolean delete(int idKey) throws SQLException;
+	public boolean updateStock(int idLibro, int addStock) throws SQLException;
 }

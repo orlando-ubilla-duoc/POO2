@@ -15,14 +15,17 @@ import com.duoc.bibliotecapp.controller.ControladorCategoria;
 import com.duoc.bibliotecapp.controller.ControladorEstudiante;
 import com.duoc.bibliotecapp.controller.ControladorLibro;
 import com.duoc.bibliotecapp.controller.ControladorPrestamo;
+import com.duoc.bibliotecapp.controller.ControladorUsuario;
 import com.duoc.bibliotecapp.dao.CategoriaDAO;
 import com.duoc.bibliotecapp.dao.EstudianteDAO;
 import com.duoc.bibliotecapp.dao.LibroDAO;
 import com.duoc.bibliotecapp.dao.PrestamoDAO;
+import com.duoc.bibliotecapp.dao.UsuarioDAO;
 import com.duoc.bibliotecapp.dao.impl.CategoriaDAOImpl;
 import com.duoc.bibliotecapp.dao.impl.EstudianteDAOImpl;
 import com.duoc.bibliotecapp.dao.impl.LibroDAOImpl;
 import com.duoc.bibliotecapp.dao.impl.PrestamoDAOImpl;
+import com.duoc.bibliotecapp.dao.impl.UsuarioDAOImpl;
 import com.duoc.bibliotecapp.model.Rol;
 import com.duoc.bibliotecapp.model.Usuario;
 
@@ -82,9 +85,11 @@ public class VentanaPrincipal {
 				// Oculta ventana principal
 				ventana.setVisible(false);
 				// Gestion de Estudiantes
+				UsuarioDAO usuarioDAO       = new UsuarioDAOImpl();
 				EstudianteDAO estudianteDAO = new EstudianteDAOImpl();
 				ControladorEstudiante controladorEstudiante = new ControladorEstudiante(estudianteDAO);
-				GestionEstudiantes viewEstudiantes = new GestionEstudiantes(ventana, controladorEstudiante);
+				ControladorUsuario controladorUsuario       = new ControladorUsuario(usuarioDAO);
+				GestionEstudiantes viewEstudiantes = new GestionEstudiantes(ventana, controladorEstudiante, controladorUsuario);
 			}
 		});
 

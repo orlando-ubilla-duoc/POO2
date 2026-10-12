@@ -64,7 +64,8 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 
 	@Override
-	public boolean update(Usuario cambiaUsuario) throws SQLException {
+	public boolean update(Usuario cambiaUsuario) throws SQLException
+	{
 		String sql = "UPDATE usuarios SET nombre=?, rut=?, correo=?, `contraseña`=?, rol=? WHERE id=?";
 		try (Connection conn = DatabaseConnection.getInstancia().getConn();
 			PreparedStatement stmt = conn.prepareStatement(sql)
@@ -82,7 +83,37 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 
 	@Override
-	public boolean delete(int idKey) throws SQLException {
+	public Usuario getByRutEmail(String rut, String email) throws SQLException
+	{
+		String sql = "SELECT * FROM usuarios WHERE rut = ? AND correo = ?";
+		Usuario u = null;
+		try(Connection conexion = DatabaseConnection.getInstancia().getConn();
+			PreparedStatement ps = conexion.prepareStatement(sql);
+		){
+			ps.setString(1, rut);
+			ps.setString(2, email);
+			ResultSet rs = ps.executeQuery();
+			if( rs.next() ){
+				Rol rol= Rol.ESTUDIANTE; // estudiante por defecto
+				if (rs.getString("rol").equals(Rol.BIBLIOTECARIO.toString())) rol=Rol.BIBLIOTECARIO;
+				u = new Usuario(
+					rs.getInt("id"),
+					rs.getString("nombre"),
+					rs.getString("rut"),
+					rs.getString("correo"),
+					rs.getString("contraseña"),
+					rol
+				);
+			}
+		} catch (Exception e) {
+			throw new SQLException(e.getMessage());
+		}
+		return u;
+	}
+
+	@Override
+	public boolean delete(int idKey) throws SQLException
+	{
 		String sql = "DELETE FROM usuarios WHERE id=?";
 		try (Connection conn = DatabaseConnection.getInstancia().getConn();
 			PreparedStatement stmt = conn.prepareStatement(sql)

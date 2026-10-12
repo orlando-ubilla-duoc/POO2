@@ -84,6 +84,22 @@ public class LibroDAOImpl implements LibroDAO {
 	}
 
 	@Override
+	public synchronized boolean updateStock(int idLibro, int addStock) throws SQLException
+	{
+		String sql = "UPDATE libros SET stock=stock + ? WHERE id=? AND stock > 0";
+
+		try (Connection conn = DatabaseConnection.getInstancia().getConn();
+			PreparedStatement stmt = conn.prepareStatement(sql)
+		){
+			stmt.setInt(1, addStock);
+			stmt.setInt(2, idLibro);
+
+			boolean actualizado = stmt.executeUpdate() > 0;
+			return actualizado;
+		}
+	}
+
+	@Override
 	public boolean delete(int idKey) throws SQLException
 	{
 		String sql = "DELETE FROM libros WHERE id=?";

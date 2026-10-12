@@ -9,10 +9,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,7 +41,6 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 	private JTextField txtFechaDevolucion;
 	private JComboBox<Estudiante> cboEstudiante;
 	private JComboBox<Libro> cboLibro;
-	private JCheckBox chkDevuelto;
 	private JTable tablaRegistros;
 	private DefaultTableModel modeloTabla;
 	private final ControladorPrestamo controladorPrestamo;
@@ -75,7 +75,7 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
 		panelPrincipal.setBorder(BorderFactory.createEmptyBorder(10, 15, 15, 15));
 
-		JPanel panelFormulario = new JPanel(new GridLayout(6, 2, 10, 8));
+		JPanel panelFormulario = new JPanel(new GridLayout(5, 2, 10, 8));
 		panelFormulario.setBorder(new TitledBorder("Registro de préstamo"));
 
 		txtId              = new JTextField();
@@ -84,7 +84,6 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		cboLibro           = new JComboBox<>();
 		txtFechaPrestamo   = new JTextField(LocalDate.now().toString());
 		txtFechaDevolucion = new JTextField();
-		chkDevuelto        = new JCheckBox("Devuelto");
 
 		cargarOpcionesEstudiantesYLibros();
 
@@ -98,22 +97,20 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		panelFormulario.add(txtFechaPrestamo);
 		panelFormulario.add(new JLabel("Fecha devolución (AAAA-MM-DD):"));
 		panelFormulario.add(txtFechaDevolucion);
-		panelFormulario.add(new JLabel("Estado:"));
-		panelFormulario.add(chkDevuelto);
 
-		JButton btnGuardar = new JButton("Guardar");
-		JButton btnActualizar = new JButton("Actualizar");
-		JButton btnBorrar = new JButton("Borrar");
+		JButton btnPedir = new JButton("Pedir libro");
+		JButton btnDevolver = new JButton("Devolver libro");
+		//JButton btnBorrar = new JButton("Borrar");
 		JButton btnLimpiar = new JButton("Limpiar");
-		btnGuardar.addActionListener(e -> guardarRegistro());
-		btnActualizar.addActionListener(e -> actualizarRegistro());
-		btnBorrar.addActionListener(e -> borrarRegistro());
+		btnPedir.addActionListener(e -> pedirLibro());
+		btnDevolver.addActionListener(e -> devolverLibro());
+		//btnBorrar.addActionListener(e -> borrarRegistro());
 		btnLimpiar.addActionListener(e -> limpiarCampos());
 
 		JPanel panelBotones = new JPanel(new GridLayout(1, 4, 8, 0));
-		panelBotones.add(btnGuardar);
-		panelBotones.add(btnActualizar);
-		panelBotones.add(btnBorrar);
+		panelBotones.add(btnPedir);
+		panelBotones.add(btnDevolver);
+		//panelBotones.add(btnBorrar);
 		panelBotones.add(btnLimpiar);
 
 		JPanel panelSuperior = new JPanel(new BorderLayout(8, 8));
@@ -122,7 +119,7 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
 
 		String[] columnas = {
-				"Id", "Estudiante", "Libro", "Fecha prestamo", "Fecha devolucion", "Devuelto?"
+				"Id", "Estudiante", "Libro", "Fecha prestamo", "Fecha devolucion", "Devuelto?", "Stock"
 		};
 		modeloTabla = new DefaultTableModel(columnas, 0) {
 			@Override
@@ -132,7 +129,7 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		};
 		tablaRegistros = new JTable(modeloTabla);
 		tablaRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaRegistros.getSelectionModel().addListSelectionListener(this::seleccionarPrestamo);
+		tablaRegistros.getSelectionModel().addListSelectionListener(e -> seleccionarPrestamo(e));
 
 		JPanel panelTabla = new JPanel(new BorderLayout());
 		panelTabla.setBorder(new TitledBorder("Préstamos registrados"));
@@ -163,8 +160,8 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 			for (Prestamo prestamo : prestamos) {
 				modeloTabla.addRow(new Object[] {
 						prestamo.getId(),
-						etiquetaEstudiante(prestamo.getIdEstudiante()),
-						etiquetaLibro(prestamo.getIdLibro()),
+						textoCeldaEstudiante(prestamo.getIdEstudiante()),
+						textoCeldaLibro(prestamo.getIdLibro()),
 						formatearFecha(prestamo.getFechaPrestamo()),
 						formatearFecha(prestamo.getFechaDevolucion()),
 						prestamo.isDevuelto() ? "Sí" : "No"
@@ -175,7 +172,7 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		}
 	}
 
-	private String etiquetaEstudiante(int idEstudiante) {
+	private String textoCeldaEstudiante(int idEstudiante) {
 		for (int i = 0; i < cboEstudiante.getItemCount(); i++) {
 			Estudiante estudiante = cboEstudiante.getItemAt(i);
 			if (estudiante.getId() == idEstudiante) {
@@ -185,7 +182,7 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		return Integer.toString(idEstudiante);
 	}
 
-	private String etiquetaLibro(int idLibro) {
+	private String textoCeldaLibro(int idLibro) {
 		for (int i = 0; i < cboLibro.getItemCount(); i++) {
 			Libro libro = cboLibro.getItemAt(i);
 			if (libro.getId() == idLibro) {
@@ -199,7 +196,8 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		return fecha == null ? "" : fecha.toString();
 	}
 
-	private void seleccionarPrestamo(ListSelectionEvent evento) {
+	private void seleccionarPrestamo(ListSelectionEvent evento)
+	{
 		if (evento.getValueIsAdjusting() || tablaRegistros.getSelectedRow() < 0) {
 			return;
 		}
@@ -213,7 +211,10 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 				seleccionarLibro(prestamo.getIdLibro());
 				txtFechaPrestamo.setText(formatearFecha(prestamo.getFechaPrestamo()));
 				txtFechaDevolucion.setText(formatearFecha(prestamo.getFechaDevolucion()));
-				chkDevuelto.setSelected(prestamo.isDevuelto());
+				cboEstudiante.setEnabled(false);
+				cboLibro.setEnabled(false);
+				txtFechaPrestamo.setEditable(false);
+				txtFechaDevolucion.setEditable(false);
 				break;
 			}
 		}
@@ -237,27 +238,61 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		}
 	}
 
-	private void guardarRegistro() {
+	private void pedirLibro() {
 		try {
-			controladorPrestamo.guardar(crearPrestamo(0));
+			boolean resultado = controladorPrestamo.guardar( crearPrestamo( 0, false));
+			if( resultado ){
+				Thread hilo = new Thread(new Runnable() {
+					@Override
+					public void run(){
+						try {
+							Libro libro = (Libro) cboLibro.getSelectedItem();
+							controladorLibro.actualizaStock( libro.getId(), -1);
+						} catch (SQLException e) {
+							mostrarError("No se pudo actualizar el Stock.", e);
+						}
+					}
+				});
+				hilo.start();
+			}
 			limpiarCampos();
 			cargarPrestamos();
+			JOptionPane.showMessageDialog(this, "El Prestamo ha sido registrado.", "Prestamos",JOptionPane.INFORMATION_MESSAGE);
 		} catch (IllegalArgumentException e) {
 			mostrarValidacion(e.getMessage());
 		} catch (SQLException e) {
 			mostrarError("No se pudo guardar el préstamo.", e);
-		}
+		}/* catch (InterruptedException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
+		}*/
 	}
 
-	private void actualizarRegistro() {
+	private void devolverLibro() {
 		if (txtId.getText().isEmpty()) {
-			mostrarValidacion("Selecciona un préstamo para actualizar.");
+			mostrarValidacion("Selecciona un préstamo para devolver.");
 			return;
 		}
 		try {
-			controladorPrestamo.actualizar(crearPrestamo(Integer.parseInt(txtId.getText())));
+			Prestamo devolucion = crearPrestamo(Integer.parseInt(txtId.getText()), true);
+			devolucion.setFechaDevolucion(LocalDate.now());
+			boolean resultado = controladorPrestamo.actualizar(devolucion);
+			if( resultado ){
+				Thread hilo = new Thread(new Runnable() {
+					@Override
+					public void run(){
+						try {
+							Libro libro = (Libro) cboLibro.getSelectedItem();
+							controladorLibro.actualizaStock( libro.getId(), 1);
+						} catch (SQLException e) {
+							mostrarError("No se pudo actualizar el Stock.", e);
+						}
+					}
+				});
+				hilo.start();
+			}
 			limpiarCampos();
 			cargarPrestamos();
+			JOptionPane.showMessageDialog(this, "El Libro ha sido devuelto.", "Prestamos",JOptionPane.INFORMATION_MESSAGE);
 		} catch (IllegalArgumentException e) {
 			mostrarValidacion(e.getMessage());
 		} catch (SQLException e) {
@@ -265,7 +300,7 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		}
 	}
 
-	private void borrarRegistro() {
+	private void borrarRegistro(){
 		if (txtId.getText().isEmpty()) {
 			mostrarValidacion("Selecciona un préstamo para eliminar.");
 			return;
@@ -279,7 +314,8 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		}
 	}
 
-	private Prestamo crearPrestamo(int id) {
+	private Prestamo crearPrestamo(int id, boolean esDevolucion)
+	{
 		Estudiante estudiante = (Estudiante) cboEstudiante.getSelectedItem();
 		Libro libro = (Libro) cboLibro.getSelectedItem();
 		if (estudiante == null || libro == null) {
@@ -293,16 +329,15 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		try {
 			LocalDate fechaPrestamo = LocalDate.parse(fechaPrestamoTexto);
 			String fechaDevolucionTexto = txtFechaDevolucion.getText().trim();
-			LocalDate fechaDevolucion = fechaDevolucionTexto.isEmpty()
-					? null
-					: LocalDate.parse(fechaDevolucionTexto);
+			LocalDate fechaDevolucion = fechaDevolucionTexto.isEmpty() ? null : LocalDate.parse(fechaDevolucionTexto);
 			return new Prestamo(
-					id,
-					estudiante.getId(),
-					libro.getId(),
-					fechaPrestamo,
-					fechaDevolucion,
-					chkDevuelto.isSelected());
+				id,
+				estudiante.getId(),
+				libro.getId(),
+				fechaPrestamo,
+				fechaDevolucion,
+				esDevolucion
+			);
 		} catch (DateTimeParseException e) {
 			throw new IllegalArgumentException("Las fechas deben tener el formato AAAA-MM-DD.");
 		}
@@ -312,7 +347,6 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		txtId.setText("");
 		txtFechaPrestamo.setText(LocalDate.now().toString());
 		txtFechaDevolucion.setText("");
-		chkDevuelto.setSelected(false);
 		if (cboEstudiante.getItemCount() > 0) {
 			cboEstudiante.setSelectedIndex(0);
 		}
@@ -321,6 +355,10 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		}
 		tablaRegistros.clearSelection();
 		cboEstudiante.requestFocusInWindow();
+		cboEstudiante.setEnabled(true);
+		cboLibro.setEnabled(true);
+		txtFechaPrestamo.setEditable(true);
+		txtFechaDevolucion.setEditable(true);
 	}
 
 	private void mostrarValidacion(String mensaje) {

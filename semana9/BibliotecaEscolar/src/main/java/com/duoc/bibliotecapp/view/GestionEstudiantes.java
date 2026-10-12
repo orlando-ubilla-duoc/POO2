@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -21,7 +22,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 import com.duoc.bibliotecapp.controller.ControladorEstudiante;
+import com.duoc.bibliotecapp.controller.ControladorUsuario;
 import com.duoc.bibliotecapp.model.Estudiante;
+import com.duoc.bibliotecapp.model.Rol;
+import com.duoc.bibliotecapp.model.Usuario;
 
 public class GestionEstudiantes extends JFrame {
 
@@ -30,13 +34,18 @@ public class GestionEstudiantes extends JFrame {
 	private JTextField txtRut;
 	private JTextField txtCurso;
 	private JTextField txtCorreo;
+	private JPasswordField txtContrasena;
 	private JTable tablaRegistros;
 	private DefaultTableModel modeloTabla;
-	private final ControladorEstudiante controlador;
+	private int idUsuarioSelected;
+	private final ControladorEstudiante controladorEstudiante;
+	private final ControladorUsuario controladorUsuario;
 
-	public GestionEstudiantes(JFrame ventanaPadre, ControladorEstudiante ctr) {
+	public GestionEstudiantes(JFrame ventanaPadre, ControladorEstudiante ctr1, ControladorUsuario ctr2) {
 		super("Gestión de estudiantes");
-		this.controlador = ctr;
+		this.controladorEstudiante = ctr1;
+		this.controladorUsuario = ctr2;
+		this.idUsuarioSelected = 0;
 		setSize(720, 540);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -56,7 +65,7 @@ public class GestionEstudiantes extends JFrame {
 	}
 
 	private void configurarComponentes() {
-		JPanel panelFormulario = new JPanel(new GridLayout(5, 2, 10, 10));
+		JPanel panelFormulario = new JPanel(new GridLayout(6, 2, 10, 10));
 		panelFormulario.setBorder(new TitledBorder("Datos del estudiante"));
 
 		txtId     = new JTextField();
@@ -65,6 +74,7 @@ public class GestionEstudiantes extends JFrame {
 		txtRut    = new JTextField();
 		txtCurso  = new JTextField();
 		txtCorreo = new JTextField();
+		txtContrasena = new JPasswordField();
 
 		panelFormulario.add(new JLabel("ID:"));
 		panelFormulario.add(txtId);
@@ -76,6 +86,8 @@ public class GestionEstudiantes extends JFrame {
 		panelFormulario.add(txtCurso);
 		panelFormulario.add(new JLabel("Correo:"));
 		panelFormulario.add(txtCorreo);
+		panelFormulario.add(new JLabel("Contraseña:"));
+		panelFormulario.add(txtContrasena);
 
 		JButton btnGuardar = new JButton("Agregar");
 		JButton btnActualizar = new JButton("Actualizar");
@@ -110,7 +122,7 @@ public class GestionEstudiantes extends JFrame {
 		};
 		tablaRegistros = new JTable(modeloTabla);
 		tablaRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaRegistros.getSelectionModel().addListSelectionListener(this::seleccionarEstudiante);
+		tablaRegistros.getSelectionModel().addListSelectionListener(e -> seleccionarEstudiante(e));
 		JScrollPane scrollPanel = new JScrollPane(tablaRegistros);
 		scrollPanel.getViewport().setBackground(Color.WHITE);
 		panelTabla.add(scrollPanel, BorderLayout.CENTER);
@@ -127,12 +139,14 @@ public class GestionEstudiantes extends JFrame {
 		txtCorreo.setText("");
 		tablaRegistros.clearSelection();
 		txtNombre.requestFocusInWindow();
+		txtContrasena.setText("");
+		idUsuarioSelected = 0;
 	}
 
 	private void cargarDatosTabla() {
 		try {
 			modeloTabla.setRowCount(0);
-			for (Estudiante estudiante : controlador.listarEstudiantes()) {
+			for (Estudiante estudiante : controladorEstudiante.listarEstudiantes()) {
 				modeloTabla.addRow(new Object[] {
 						estudiante.getId(),
 						estudiante.getNombre(),
@@ -154,6 +168,15 @@ public class GestionEstudiantes extends JFrame {
 			txtRut.setText(modeloTabla.getValueAt(fila, 2).toString());
 			txtCurso.setText(modeloTabla.getValueAt(fila, 3).toString());
 			txtCorreo.setText(modeloTabla.getValueAt(fila, 4).toString());
+			try {
+				Usuario usuario = this.controladorUsuario.obtenerPorRutYCorreo( txtRut.getText().trim(), txtCorreo.getText().trim());
+				idUsuarioSelected = usuario.getId();
+				txtContrasena.setText(usuario.getContrasena());
+			} catch (Exception e) {
+				idUsuarioSelected = 0;
+				txtContrasena.setText("");
+				JOptionPane.showMessageDialog(this, e.getMessage(),"Usuario no encontrado", JOptionPane.WARNING_MESSAGE);
+			}
 		}
 	}
 
@@ -163,14 +186,18 @@ public class GestionEstudiantes extends JFrame {
 		}
 
 		try {
-			boolean resultado = controlador.guardar(crearEstudiante(0));
+			Estudiante newEstudiante = crearEstudiante(0);
+			boolean resultado = controladorEstudiante.guardar(newEstudiante);
 			if( resultado ){
+				resultado = controladorUsuario.guardar(crearUsuario(newEstudiante));
 				JOptionPane.showMessageDialog(null, "Estudiante agregado correctamente.");
 			}
 			limpiarCampos();
 			cargarDatosTabla();
 		} catch (SQLException e) {
 			mostrarError("No se pudo guardar el estudiante.", e);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -184,14 +211,22 @@ public class GestionEstudiantes extends JFrame {
 		}
 
 		try {
-			boolean resultado = controlador.actualizar(crearEstudiante(Integer.parseInt(txtId.getText())));
+			Estudiante editaEstudiante = crearEstudiante(Integer.parseInt(txtId.getText()));
+			boolean resultado = controladorEstudiante.actualizar(editaEstudiante);
 			if( resultado ){
+				if( idUsuarioSelected!=0 ){
+					controladorUsuario.actualizar(crearUsuario(editaEstudiante));
+				} else {
+					controladorUsuario.guardar(crearUsuario(editaEstudiante));
+				}
 				JOptionPane.showMessageDialog(null, "Estudiante actualizado correctamente.");
 			}
 			limpiarCampos();
 			cargarDatosTabla();
 		} catch (SQLException e) {
 			mostrarError("No se pudo actualizar el estudiante.", e);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -202,7 +237,7 @@ public class GestionEstudiantes extends JFrame {
 		}
 
 		try {
-			boolean resultado = controlador.borrar(Integer.parseInt(txtId.getText()));
+			boolean resultado = controladorEstudiante.borrar(Integer.parseInt(txtId.getText()));
 			if( resultado ){
 				JOptionPane.showMessageDialog(null, "Estudiante eliminado correctamente.");
 			}
@@ -228,6 +263,21 @@ public class GestionEstudiantes extends JFrame {
 			txtRut.getText().trim(),
 			txtCurso.getText().trim(),
 			txtCorreo.getText().trim()
+		);
+	}
+
+	private Usuario crearUsuario(Estudiante estudiante) throws Exception {
+		char[] contrasenaIngresada = txtContrasena.getPassword();
+		if( contrasenaIngresada.length == 0 ){
+			throw new Exception("Falto completar contraseña.");
+		}
+		return new Usuario(
+			idUsuarioSelected,
+			estudiante.getNombre(),
+			estudiante.getRut(),
+			estudiante.getCorreo(),
+			new String(contrasenaIngresada),
+			Rol.ESTUDIANTE
 		);
 	}
 

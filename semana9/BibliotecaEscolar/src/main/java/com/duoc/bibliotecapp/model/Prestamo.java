@@ -30,7 +30,6 @@ public class Prestamo {
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -38,7 +37,6 @@ public class Prestamo {
 	public int getIdEstudiante() {
 		return idEstudiante;
 	}
-
 	public void setIdEstudiante(int idEstudiante) {
 		this.idEstudiante = idEstudiante;
 	}
@@ -46,7 +44,6 @@ public class Prestamo {
 	public int getIdLibro() {
 		return idLibro;
 	}
-
 	public void setIdLibro(int idLibro) {
 		this.idLibro = idLibro;
 	}
@@ -54,7 +51,6 @@ public class Prestamo {
 	public LocalDate getFechaPrestamo() {
 		return fechaPrestamo;
 	}
-
 	public void setFechaPrestamo(LocalDate fechaPrestamo) {
 		this.fechaPrestamo = fechaPrestamo;
 	}
@@ -62,7 +58,6 @@ public class Prestamo {
 	public LocalDate getFechaDevolucion() {
 		return fechaDevolucion;
 	}
-
 	public void setFechaDevolucion(LocalDate fechaDevolucion) {
 		this.fechaDevolucion = fechaDevolucion;
 	}
@@ -70,7 +65,6 @@ public class Prestamo {
 	public boolean isDevuelto() {
 		return devuelto;
 	}
-
 	public void setDevuelto(boolean devuelto) {
 		this.devuelto = devuelto;
 	}
@@ -78,7 +72,6 @@ public class Prestamo {
 	public String getNombreEstudiante() {
 		return nombreEstudiante;
 	}
-
 	public void setNombreEstudiante(String nombreEstudiante) {
 		this.nombreEstudiante = nombreEstudiante;
 	}
@@ -86,7 +79,6 @@ public class Prestamo {
 	public String getRutEstudiante() {
 		return rutEstudiante;
 	}
-
 	public void setRutEstudiante(String rutEstudiante) {
 		this.rutEstudiante = rutEstudiante;
 	}
@@ -94,7 +86,6 @@ public class Prestamo {
 	public String getCursoEstudiante() {
 		return cursoEstudiante;
 	}
-
 	public void setCursoEstudiante(String cursoEstudiante) {
 		this.cursoEstudiante = cursoEstudiante;
 	}
@@ -102,7 +93,6 @@ public class Prestamo {
 	public String getTituloLibro() {
 		return tituloLibro;
 	}
-
 	public void setTituloLibro(String tituloLibro) {
 		this.tituloLibro = tituloLibro;
 	}

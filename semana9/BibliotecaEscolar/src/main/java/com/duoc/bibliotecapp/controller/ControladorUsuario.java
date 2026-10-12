@@ -33,6 +33,16 @@ public class ControladorUsuario {
 		return this.usuarioDAO.delete(id);
 	}
 
+	public Usuario obtenerPorRutYCorreo(String rut, String correo) throws Exception
+	{
+		try {
+			return this.usuarioDAO.getByRutEmail( rut, correo);
+		} catch (SQLException e) {
+			System.err.println(e);
+			throw new Exception(e.getMessage());
+		}
+	}
+
 	public Usuario validarUsuario(String usuario, char[] password) throws Exception
 	{
 		if( usuario.isEmpty() || password.length == 0 ){

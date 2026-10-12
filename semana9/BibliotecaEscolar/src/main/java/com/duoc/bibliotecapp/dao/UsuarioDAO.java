@@ -10,6 +10,7 @@ public interface UsuarioDAO {
 	public boolean create(Usuario nuevoUsuario) throws SQLException;
 	public List<Usuario> readAll() throws SQLException;
 	public boolean update(Usuario cambiaUsuario) throws SQLException;
+	public Usuario getByRutEmail(String rut, String email) throws SQLException;
 	public boolean delete(int idKey) throws SQLException;
 	public Usuario consultaUsuario(String usuario, char[] password) throws SQLException;
 }

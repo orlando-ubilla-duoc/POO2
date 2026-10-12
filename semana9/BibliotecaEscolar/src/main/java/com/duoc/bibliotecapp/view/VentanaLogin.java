@@ -76,7 +76,7 @@ public class VentanaLogin {
 				JOptionPane.showMessageDialog(ventana,"No se pudo ingresar al sistema.","Acceso denegado",JOptionPane.ERROR_MESSAGE);
 			}
 
-			JOptionPane.showMessageDialog( ventana, "Bienvenido "+loginUsuario.getNombre()+" !","Acceso correcto", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog( ventana, "Bienvenido "+loginUsuario.getNombre()+" !","Acceso correcto", JOptionPane.INFORMATION_MESSAGE);
 			VentanaPrincipal programa = new VentanaPrincipal( loginUsuario);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog( ventana, e.getMessage(),"Error acceso", JOptionPane.ERROR_MESSAGE);

@@ -125,7 +125,7 @@ public class GestionLibros extends JFrame {
 		};
 		tablaRegistros = new JTable(modeloTabla);
 		tablaRegistros.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaRegistros.getSelectionModel().addListSelectionListener(this::seleccionarLibro);
+		tablaRegistros.getSelectionModel().addListSelectionListener(e -> seleccionarLibro(e));
 
 		JPanel panelTabla = new JPanel(new BorderLayout());
 		panelTabla.setBorder(new TitledBorder("Libros registrados"));

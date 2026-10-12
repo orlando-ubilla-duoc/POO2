@@ -41,7 +41,7 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 	public List<Prestamo> readAll() throws SQLException
 	{
 		List<Prestamo> prestamos = new ArrayList<>();
-		String sql = "SELECT id, id_estudiante, id_libro, fecha_prestamo, fecha_devolucion, devuelto FROM prestamos ORDER BY id DESC";
+		String sql = "SELECT p.id, p.id_estudiante, p.id_libro, p.fecha_prestamo, p.fecha_devolucion, p.devuelto, l.stock FROM prestamos p, libros l WHERE p.id_libro=l.id ORDER BY id DESC";
 
 		try (Connection conn = DatabaseConnection.getInstancia().getConn();
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -50,13 +50,15 @@ public class PrestamoDAOImpl implements PrestamoDAO {
 			while (rs.next()) {
 				Date fechaPrestamo = rs.getDate("fecha_prestamo");
 				Date fechaDevolucion = rs.getDate("fecha_devolucion");
-				prestamos.add(new Prestamo(
-						rs.getInt("id"),
-						rs.getInt("id_estudiante"),
-						rs.getInt("id_libro"),
-						fechaPrestamo == null ? null : fechaPrestamo.toLocalDate(),
-						fechaDevolucion == null ? null : fechaDevolucion.toLocalDate(),
-						rs.getBoolean("devuelto")));
+				Prestamo prestamo = new Prestamo(
+					rs.getInt("id"),
+					rs.getInt("id_estudiante"),
+					rs.getInt("id_libro"),
+					fechaPrestamo == null ? null : fechaPrestamo.toLocalDate(),
+					fechaDevolucion == null ? null : fechaDevolucion.toLocalDate(),
+					rs.getBoolean("devuelto")
+				);
+				prestamos.add(prestamo);
 			}
 		}
 		return prestamos;

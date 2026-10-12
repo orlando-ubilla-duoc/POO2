@@ -18,7 +18,7 @@ public class DatabaseConnection {
 		this.conn = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
 	}
 
-	public static synchronized DatabaseConnection getInstancia() throws SQLException
+	public static DatabaseConnection getInstancia() throws SQLException
 	{
 		if( instancia == null ){
 			instancia = new DatabaseConnection();
