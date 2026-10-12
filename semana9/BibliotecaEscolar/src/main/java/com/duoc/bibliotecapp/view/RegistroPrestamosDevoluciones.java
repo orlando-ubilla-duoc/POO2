@@ -119,7 +119,7 @@ public class RegistroPrestamosDevoluciones extends JFrame {
 		panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
 
 		String[] columnas = {
-				"Id", "Estudiante", "Libro", "Fecha prestamo", "Fecha devolucion", "Devuelto?", "Stock"
+				"Id", "Estudiante", "Libro", "Fecha prestamo", "Fecha devolucion", "Devuelto?"
 		};
 		modeloTabla = new DefaultTableModel(columnas, 0) {
 			@Override
